@@ -29,9 +29,17 @@
       console.log("does " + target.id + " match " + prevTarget.id + "?");
       if (prevTarget.id == target.id) {
         let matches = document.getElementById("match-count");
-        matches.textContent = parseInt(matches.textContent) + 1;
-        // set visibility hidden
-        console.log("YES!");
+        let updatedScore = parseInt(matches.textContent) + 1;
+        matches.textContent = updatedScore;
+        if (updatedScore === 8) {
+          document.querySelector("#score-text").textContent = "You matched all the munchies!";
+        }
+         // set visibility to hidden
+         let prev = prevTarget;
+        setTimeout(function() {
+          target.style.visibility = "hidden";
+          prev.style.visibility = "hidden";
+        }, 1000);
       } else {
         // replace this by setting the image for the class
         // setTimeout(flipBack(event, prevTarget), 2000);
