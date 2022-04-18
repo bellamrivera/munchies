@@ -9,25 +9,47 @@
     }
   }
 
-  let prevTarget;
+  var prevTarget;
   function flipCard(event) {
-    let target = event.currentTarget.id;
-    console.log(target);
-    let toMatch;
+    // current image
+    let target = event.currentTarget;
+
+    // when flipped, add it to the flipped class and show the image
+    event.currentTarget.classList.add("flipped");
+    let source = "images/" + target.id + ".jpeg";
+    target.src = source;
+    console.log("target = " + target.id);
+
+    // if no previous image, set the previous to this one
     if (prevTarget == null) {
       prevTarget = target;
+      console.log(prevTarget.id);
     } else {
-      toMatch = prevTarget;
+      // if there is a previous, check if the current matches the previous
+      console.log("does " + target.id + " match " + prevTarget.id + "?");
+      if (prevTarget.id == target.id) {
+        let matches = document.getElementById("match-count");
+        matches.textContent = parseInt(matches.textContent) + 1;
+        // set visibility hidden
+        console.log("YES!");
+      } else {
+        // replace this by setting the image for the class
+        // setTimeout(flipBack(event, prevTarget), 2000);
+        let prev = prevTarget;
+        setTimeout(function() {
+          target.classList.remove("flipped");
+          target.src = "images/black.jpeg";
+          prev.classList.remove("flipped");
+          prev.src = "images/black.jpeg";
+        }, 1300);
+        // document.getElementById(target).src = "images/black.jpeg";
+        // console.log(document.getElementById(target));
+        // document.getElementById(prevTarget).src = "images/black.jpeg";
+      }
       prevTarget = null;
     }
-    console.log("prev target = " + prevTarget);
-    console.log("to match = " + prevTarget);
-    if(!event.currentTarget.classList.contains("flipped")) {
-      event.currentTarget.classList.add("flipped");
-      let source = "images/" + target + ".jpeg";
-      event.currentTarget.src = source;
 
-      event.currentTarget.addEventListener('click', findMatch);
+
     //   let score = id("score");
     //   let total = parseInt(score.textContent) + 1;
     //   // Need to convert the string content into a number.
@@ -36,10 +58,9 @@
     //     qs("#game p").textContent = "You have whacked all bugs";
     //   }
     // }
-    }
   }
 
-  function findMatch(event) {
-    console.log("prev target = " + target);
-  }
+  // function flipBack(event, prevTarget) {
+
+  // }
 })();
