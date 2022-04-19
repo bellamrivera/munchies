@@ -5,6 +5,7 @@
   function init() {
   	let images = document.querySelectorAll('img');
     for (let i = 0; i < images.length; i++) {
+      images[i].classList.add("flipped");
       images[i].addEventListener('click', flipCard);
     }
   }
@@ -14,61 +15,45 @@
     // current image
     let target = event.currentTarget;
 
-    // when flipped, add it to the flipped class and show the image
-    event.currentTarget.classList.add("flipped");
+    // when flipped, remove from flipped class and show the image
+    event.currentTarget.classList.remove("flipped");
     let source = "images/" + target.id + ".jpeg";
     target.src = source;
-    console.log("target = " + target.id);
 
     // if no previous image, set the previous to this one
     if (prevTarget == null) {
       prevTarget = target;
-      console.log(prevTarget.id);
     } else {
       // if there is a previous, check if the current matches the previous
-      console.log("does " + target.id + " match " + prevTarget.id + "?");
       if (prevTarget.id == target.id) {
-        let matches = document.getElementById("match-count");
-        let updatedScore = parseInt(matches.textContent) + 1;
-        matches.textContent = updatedScore;
-        if (updatedScore === 8) {
-          document.querySelector("#score-text").textContent = "You matched all the munchies!";
-        }
-         // set visibility to hidden
-         let prev = prevTarget;
-        setTimeout(function() {
-          target.style.visibility = "hidden";
-          prev.style.visibility = "hidden";
-        }, 1000);
+        updateScore();
+
+        // set visibility to hidden
+        let prev = prevTarget;
+        setTimeout(addClass, 1000, target, prev, "matched");
       } else {
         // replace this by setting the image for the class
         // setTimeout(flipBack(event, prevTarget), 2000);
         let prev = prevTarget;
-        setTimeout(function() {
-          target.classList.remove("flipped");
-          target.src = "images/black.jpeg";
-          prev.classList.remove("flipped");
-          prev.src = "images/black.jpeg";
-        }, 1300);
-        // document.getElementById(target).src = "images/black.jpeg";
-        // console.log(document.getElementById(target));
-        // document.getElementById(prevTarget).src = "images/black.jpeg";
+        setTimeout(addClass, 1300, target, prev, "flipped");
       }
       prevTarget = null;
     }
-
-
-    //   let score = id("score");
-    //   let total = parseInt(score.textContent) + 1;
-    //   // Need to convert the string content into a number.
-    //   score.textContent = parseInt(score.textContent) + 1;
-    //   if (total === 24) {
-    //     qs("#game p").textContent = "You have whacked all bugs";
-    //   }
-    // }
   }
 
-  // function flipBack(event, prevTarget) {
+  function addClass(target, prev, className) {
+    console.log(target);
+    console.log(prev);
+    target.classList.add(className);
+    prev.classList.add(className);
+  }
 
-  // }
+  function updateScore() {
+    let matches = document.getElementById("match-count");
+    let updatedScore = parseInt(matches.textContent) + 1;
+    matches.textContent = updatedScore;
+    if (updatedScore === 8) {
+      document.querySelector("#score-text").textContent = "You matched all the munchies!";
+    }
+  }
 })();
