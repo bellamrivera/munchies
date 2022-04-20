@@ -19,30 +19,30 @@ body {
   background-attachment: fixed;
   font-family: 'Bubblegum Sans', cursive;
   color: #454545;
-  display: flex;
-  flex-direction: column;
   align-items: center;
 }
 
+body, #score-text {
+  display: flex;
+  flex-direction: column;
+}
+
 h1 {
-  text-align: center;
   font-size: 70px;
   margin-bottom: 20px;
   color: #BC9969;
   text-shadow: #FFE5CF 10px 7px 5px;
 }
 
+h1, footer {
+  text-align: center;
+}
+
 #intro p {
-  font-size: 20px;
   margin-bottom: 30px;
 }
 
-#score-text {
-  display: flex;
-  flex-direction: column;
-}
-
-#score-text p {
+#intro p, #score-text p {
   font-size: 20px;
 }
 
@@ -50,6 +50,9 @@ h1 {
   align-self: center;
   width: 300px;
   height: 300px;
+}
+
+#score-text img, .game-over {
   margin-top: 20px;
 }
 
@@ -64,13 +67,11 @@ h1 {
 
 .game-over {
   font-size: 60px;
-  margin-top: 20px;
   color: #D1589C;
 }
 
 footer {
   width: 100%;
-  text-align: center;
   margin-top: 30px;
   position: absolute;
   bottom: 0;

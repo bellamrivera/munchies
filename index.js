@@ -1,9 +1,10 @@
-// Bella Rivera
-// April 4, 2022
-// CSE154 Section AH
-// This is the JavaScript for my CP2 website. It contains all of the functionality.
-    // It sets up the boards, flips the cards, counts the matches, and triggers
-    // the celebration when all the matches have been found.
+/* Bella Rivera
+   April 4, 2022
+   CSE154 Section AH
+
+   This is the JavaScript for my CP2 website. It contains all of the functionality.
+   It sets up the boards, flips the cards, counts the matches, and triggers
+   the celebration when all the matches have been found. */
 
 "use strict";
 (function() {
@@ -13,16 +14,15 @@
   const GOAL = 8;
   const NUM_ROWS = 4;
   const NUM_COLS = 4;
-  const FOODS =['1chips', '2chips', '1cookies', '2cookies', '1donut', '2donut',
+  const FOODS = ['1chips', '2chips', '1cookies', '2cookies', '1donut', '2donut',
                     '1fries', '2fries', '1grilledcheese', '2grilledcheese', '1oreos',
                     '2oreos', '1pizza', '2pizza', '1taco', '2taco'];
-
 
   function init() {
     createBoard();
   }
 
-  var prevTarget;
+  let prevTarget;
   function flipCard(event) {
     // current image
     let target = event.currentTarget;
@@ -34,24 +34,25 @@
     target.src = source;
 
     // if no previous image, set the previous to this one
-    if (prevTarget == null) {
+    if (prevTarget === null) {
       prevTarget = target;
     } else {
 
       // if there is a previous, check if the current matches the previous
       let prevId = prevTarget.id;
       let targId = target.id;
-      if (prevId.substring(1) == targId.substring(1) && prevId != targId) {
+      if (prevId.substring(1) === targId.substring(1) && prevId !== targId) {
         updateScore();
 
         // set visibility to hidden
         let prev = prevTarget;
-        setTimeout(addClass, 900, target, prev, "matched");
-      } else if (prevId.substring(1) != targId.substring(1)) {
-        // replace this by setting the image for the class
-        // setTimeout(flipBack(event, prevTarget), 2000);
+        let delay = 900;
+        setTimeout(addClass, delay, target, prev, "matched");
+      } else if (prevId.substring(1) !== targId.substring(1)) {
+
+        // flip them back over
         let prev = prevTarget;
-        setTimeout(addClass, 900, target, prev, "flipped");
+        setTimeout(addClass, delay, target, prev, "flipped");
       }
       prevTarget = null;
     }
@@ -113,12 +114,11 @@
     element.classList.add('game-over');
     element.replaceChild(newText, oldText);
     clearBoard();
-    let gif = document.createElement('img')
+    let gif = document.createElement('img');
+
     // https://media.giphy.com/media/ZB3IAId94nJj07ZzUf/giphy.gif
     gif.src = "images/happyfood.gif";
     element.appendChild(gif);
-    // console.log(document.getElementById('#score-text'));
-    // document.getElementById('#score-text').appendChild(gif);
   }
 
 })();
