@@ -46,7 +46,7 @@
     target.src = source;
 
     // if no previous image, set the previous to this one
-    if (prevTarget === null || prevTarget == undefined) {
+    if (prevTarget === null || prevTarget === undefined) {
       prevTarget = target;
     } else {
 
