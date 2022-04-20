@@ -1,12 +1,12 @@
 /**
-  * Bella Rivera
-  * April 4, 2022
-  * CSE154 Section AH
-
-  * This is the JavaScript for my CP2 website. It contains all of the functionality.
-  * It sets up the boards, flips the cards, counts the matches, and triggers
-  * the celebration when all the matches have been found.
-  */
+* Bella Rivera
+* April 4, 2022
+* CSE154 Section AH
+*
+* This is the JavaScript for my CP2 website. It contains all of the functionality.
+* It sets up the boards, flips the cards, counts the matches, and triggers
+* the celebration when all the matches have been found.
+*/
 
 "use strict";
 (function() {
@@ -23,7 +23,6 @@
   /**
    * Initializes the game by creating the board (calls helper function createBoard)
    */
-
   function init() {
     createBoard();
   }
@@ -33,7 +32,6 @@
    * Also checks for a match. If there is a match, hides both cards. Otherwise,
    * flips them both back over.
   */
-
   let prevTarget;
   function flipCard(event) {
     // current image
@@ -75,7 +73,6 @@
    * Sets up the board. Randomly places the images in a 4x4 grid. Also adds an
    * event listener to each card so that they are ready to be flipped.
    */
-
   function createBoard() {
     // set up with random placement of images
     for (let i = 1; i <= NUM_ROWS; i++) {
@@ -111,7 +108,6 @@
    * @param {element} prev     the previous card
    * @param {string} className the name of the class we want to add
    */
-
   function addClass(target, prev, className) {
     target.classList.add(className);
     prev.classList.add(className);
@@ -122,7 +118,6 @@
    * Once all matches have been found, clears the board and shows celebration
    * text and image, using helper functions.
    */
-
   function updateScore() {
     let matches = document.getElementById("match-count");
     let updatedScore = parseInt(matches.textContent) + 1;
@@ -136,7 +131,6 @@
    * Tells user that they have found all matches. Clears the board and shows
    * a gif of happy cartoon characters with food.
    */
-
   function celebrate() {
     let element = document.querySelector("#score-text");
     let oldText = document.querySelector("#score-text p");
@@ -156,7 +150,6 @@
    * Clears the board from the webpage. Keeps the row sections intact, just
    * removes all of the images from the rows.
    */
-
   function clearBoard() {
     for (let i = 1; i <= NUM_ROWS; i++) {
       let row = document.getElementById("row" + i);
