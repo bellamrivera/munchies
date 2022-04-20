@@ -1,3 +1,10 @@
+/* Bella Rivera
+   April 4, 2022
+   CSE154 Section AH
+   This is the CSS for my CP2 website. This takes care of the styling. It defines
+   the background, colors, font, etc. The pinky theme is all due to this page. It
+   keeps the website looking cleann and cohesive. */
+
 #match-grid img {
   width: 100px;
   height: 100px;
@@ -27,7 +34,7 @@ h1 {
 
 #intro p {
   font-size: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 #score-text {
@@ -51,6 +58,7 @@ h1 {
 }
 
 .flipped {
+  /* screenshot of color from https://htmlcolorcodes.com/ */
   content: url("images/pink.jpeg");
 }
 
@@ -58,4 +66,16 @@ h1 {
   font-size: 60px;
   margin-top: 20px;
   color: #D1589C;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  position: absolute;
+  bottom: 0;
+}
+
+footer p {
+  font-size: 12px;
 }

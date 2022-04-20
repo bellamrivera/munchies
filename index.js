@@ -1,6 +1,22 @@
+// Bella Rivera
+// April 4, 2022
+// CSE154 Section AH
+// This is the JavaScript for my CP2 website. It contains all of the functionality.
+    // It sets up the boards, flips the cards, counts the matches, and triggers
+    // the celebration when all the matches have been found.
+
 "use strict";
 (function() {
 	window.addEventListener("load", init);
+
+  // game constants
+  const GOAL = 8;
+  const NUM_ROWS = 4;
+  const NUM_COLS = 4;
+  const FOODS =['1chips', '2chips', '1cookies', '2cookies', '1donut', '2donut',
+                    '1fries', '2fries', '1grilledcheese', '2grilledcheese', '1oreos',
+                    '2oreos', '1pizza', '2pizza', '1taco', '2taco'];
+
 
   function init() {
     createBoard();
@@ -41,56 +57,21 @@
     }
   }
 
-  function addClass(target, prev, className) {
-    target.classList.add(className);
-    prev.classList.add(className);
-  }
-
-  function updateScore() {
-    const goal = 8;
-    let matches = document.getElementById("match-count");
-    let updatedScore = parseInt(matches.textContent) + 1;
-    matches.textContent = updatedScore;
-    if (updatedScore === goal) {
-      celebrate();
-    }
-  }
-
-  function celebrate() {
-    let element = document.querySelector("#score-text");
-    let oldText = document.querySelector("#score-text p");
-    let newText = document.createTextNode("You matched all the munchies!");
-    element.classList.add('game-over');
-    element.replaceChild(newText, oldText);
-    clearBoard();
-    let gif = document.createElement('img')
-    gif.src = "images/happyfood.gif";
-    element.appendChild(gif);
-    // console.log(document.getElementById('#score-text'));
-    // document.getElementById('#score-text').appendChild(gif);
-  }
-
   function createBoard() {
     // set up with random placement of images
-    const numRows = 4;
-    const numCols = 4;
-    const foods =['1chips', '2chips', '1cookies', '2cookies', '1donut', '2donut',
-                    '1fries', '2fries', '1grilledcheese', '2grilledcheese', '1oreos',
-                    '2oreos', '1pizza', '2pizza', '1taco', '2taco'];
-
-    for (let i = 1; i <= numRows; i++) {
+    for (let i = 1; i <= NUM_ROWS; i++) {
       let row = document.getElementById("row" + i);
-      for (let j = 1; j <= numCols; j++) {
+      for (let j = 1; j <= NUM_COLS; j++) {
         // use random index to create image of selected food
-        let index = Math.floor(Math.random() * foods.length);
-        let food = foods[index];
+        let index = Math.floor(Math.random() * FOODS.length);
+        let food = FOODS[index];
         let img = document.createElement('img');
         let foodType = food.substring(1);
         img.src = 'images/' + foodType + '.jpeg';
         img.id = food;
         // remove from list, so we don't reuse
         img.alt = foodType;
-        foods.splice(index, 1);
+        FOODS.splice(index, 1);
 
         // add to designated row
         row.appendChild(img);
@@ -104,12 +85,40 @@
     }
   }
 
+  function addClass(target, prev, className) {
+    target.classList.add(className);
+    prev.classList.add(className);
+  }
+
+  function updateScore() {
+    let matches = document.getElementById("match-count");
+    let updatedScore = parseInt(matches.textContent) + 1;
+    matches.textContent = updatedScore;
+    if (updatedScore === GOAL) {
+      celebrate();
+    }
+  }
+
   function clearBoard() {
-    const numRows = 4;
-    for (let i = 1; i <= numRows; i++) {
+    for (let i = 1; i <= NUM_ROWS; i++) {
       let row = document.getElementById("row" + i);
       row.innerHTML = "";
     }
+  }
+
+  function celebrate() {
+    let element = document.querySelector("#score-text");
+    let oldText = document.querySelector("#score-text p");
+    let newText = document.createTextNode("You matched all the munchies!");
+    element.classList.add('game-over');
+    element.replaceChild(newText, oldText);
+    clearBoard();
+    let gif = document.createElement('img')
+    // https://media.giphy.com/media/ZB3IAId94nJj07ZzUf/giphy.gif
+    gif.src = "images/happyfood.gif";
+    element.appendChild(gif);
+    // console.log(document.getElementById('#score-text'));
+    // document.getElementById('#score-text').appendChild(gif);
   }
 
 })();
