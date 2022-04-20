@@ -37,7 +37,6 @@
    */
   function flipCard(event) {
     // current image
-    console.log(event);
     let target = event.currentTarget;
 
     // when flipped, remove from flipped class and show the image
@@ -47,7 +46,7 @@
     target.src = source;
 
     // if no previous image, set the previous to this one
-    if (prevTarget == null) {
+    if (prevTarget === null || prevTarget == undefined) {
       prevTarget = target;
     } else {
 
