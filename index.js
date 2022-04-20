@@ -33,10 +33,11 @@
    * Called when a user clicks on a card. Flips the card over (AKA shows the image)
    * Also checks for a match. If there is a match, hides both cards. Otherwise,
    * flips them both back over.
-   * @param event   the current event (AKA the user clicked on a card)
+   * @param {object} event   the current event (AKA the user clicked on a card)
    */
   function flipCard(event) {
     // current image
+    console.log(event);
     let target = event.currentTarget;
 
     // when flipped, remove from flipped class and show the image
@@ -46,7 +47,7 @@
     target.src = source;
 
     // if no previous image, set the previous to this one
-    if (prevTarget === null) {
+    if (prevTarget == null) {
       prevTarget = target;
     } else {
 
