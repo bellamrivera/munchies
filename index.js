@@ -1,12 +1,12 @@
 /**
-* Bella Rivera
-* April 4, 2022
-* CSE154 Section AH
-*
-* This is the JavaScript for my CP2 website. It contains all of the functionality.
-* It sets up the boards, flips the cards, counts the matches, and triggers
-* the celebration when all the matches have been found.
-*/
+ * Bella Rivera
+ * April 4, 2022
+ * CSE154 Section AH
+ *
+ * This is the JavaScript for my CP2 website. It contains all of the functionality.
+ * It sets up the boards, flips the cards, counts the matches, and triggers
+ * the celebration when all the matches have been found.
+ */
 
 "use strict";
 (function() {
@@ -27,12 +27,12 @@
     createBoard();
   }
 
+  let prevTarget;
   /**
    * Called when a user clicks on a card. Flips the card over (AKA shows the image)
    * Also checks for a match. If there is a match, hides both cards. Otherwise,
    * flips them both back over.
-  */
-  let prevTarget;
+   */
   function flipCard(event) {
     // current image
     let target = event.currentTarget;
@@ -85,6 +85,7 @@
         let foodType = food.substring(1);
         img.src = 'images/' + foodType + '.jpeg';
         img.id = food;
+
         // remove from list, so we don't reuse
         img.alt = foodType;
         FOODS.splice(index, 1);
