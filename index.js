@@ -3,11 +3,7 @@
 	window.addEventListener("load", init);
 
   function init() {
-  	let images = document.querySelectorAll('img');
-    for (let i = 0; i < images.length; i++) {
-      images[i].classList.add("flipped");
-      images[i].addEventListener('click', flipCard);
-    }
+    createBoard();
   }
 
   var prevTarget;
@@ -30,12 +26,12 @@
 
         // set visibility to hidden
         let prev = prevTarget;
-        setTimeout(addClass, 1000, target, prev, "matched");
+        setTimeout(addClass, 900, target, prev, "matched");
       } else {
         // replace this by setting the image for the class
         // setTimeout(flipBack(event, prevTarget), 2000);
         let prev = prevTarget;
-        setTimeout(addClass, 1300, target, prev, "flipped");
+        setTimeout(addClass, 900, target, prev, "flipped");
       }
       prevTarget = null;
     }
@@ -53,7 +49,46 @@
     let updatedScore = parseInt(matches.textContent) + 1;
     matches.textContent = updatedScore;
     if (updatedScore === 8) {
-      document.querySelector("#score-text").textContent = "You matched all the munchies!";
+      let element = document.querySelector("#score-text");
+      let oldText = document.querySelector("#score-text p");
+      let newText = document.createTextNode("You matched all the munchies!");
+      newText.classList.add('game-over');
+      element.replaceChild(newText, oldText);
+    }
+  }
+
+  function createBoard() {
+    // set up with random placement of images
+    const numRows = 4;
+    const numCols = 4;
+    const foods =['chips', 'chips', 'cookies', 'cookies', 'donut', 'donut',
+                    'fries', 'fries', 'grilledcheese', 'grilledcheese', 'oreos',
+                    'oreos', 'pizza', 'pizza', 'taco', 'taco'];
+
+    for (let i = 1; i <= numRows; i++) {
+      let row = document.getElementById("row" + i);
+      console.log('row = ' + row);
+      for (let j = 1; j <= numCols; j++) {
+        // use random index to create image of selected food
+        let index = Math.floor(Math.random() * foods.length);
+        console.log('foods = ' + foods);
+        console.log('food = ' + foods[index]);
+        let img = document.createElement('img');
+        img.src = 'images/' + foods[index] + '.jpeg';
+        img.id = foods[index];
+        // remove from list, so we don't reuse
+        img.alt = foods[index];
+        foods.splice(index, 1);
+
+        // add to designated row
+        row.appendChild(img);
+      }
+    }
+
+    let images = document.querySelectorAll('img');
+    for (let i = 0; i < images.length; i++) {
+      images[i].classList.add("flipped");
+      images[i].addEventListener('click', flipCard);
     }
   }
 })();
