@@ -28,10 +28,12 @@
   }
 
   let prevTarget;
+
   /**
    * Called when a user clicks on a card. Flips the card over (AKA shows the image)
    * Also checks for a match. If there is a match, hides both cards. Otherwise,
    * flips them both back over.
+   * @param event   the current event (AKA the user clicked on a card)
    */
   function flipCard(event) {
     // current image
