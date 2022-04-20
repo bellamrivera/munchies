@@ -1,14 +1,16 @@
-/* Bella Rivera
-   April 4, 2022
-   CSE154 Section AH
+/**
+  * Bella Rivera
+  * April 4, 2022
+  * CSE154 Section AH
 
-   This is the JavaScript for my CP2 website. It contains all of the functionality.
-   It sets up the boards, flips the cards, counts the matches, and triggers
-   the celebration when all the matches have been found. */
+  * This is the JavaScript for my CP2 website. It contains all of the functionality.
+  * It sets up the boards, flips the cards, counts the matches, and triggers
+  * the celebration when all the matches have been found.
+  */
 
 "use strict";
 (function() {
-	window.addEventListener("load", init);
+  window.addEventListener("load", init);
 
   // game constants
   const GOAL = 8;
@@ -18,9 +20,19 @@
                     '1fries', '2fries', '1grilledcheese', '2grilledcheese', '1oreos',
                     '2oreos', '1pizza', '2pizza', '1taco', '2taco'];
 
+  /**
+   * Initializes the game by creating the board (calls helper function createBoard)
+   */
+
   function init() {
     createBoard();
   }
+
+  /**
+   * Called when a user clicks on a card. Flips the card over (AKA shows the image)
+   * Also checks for a match. If there is a match, hides both cards. Otherwise,
+   * flips them both back over.
+  */
 
   let prevTarget;
   function flipCard(event) {
@@ -41,22 +53,28 @@
       // if there is a previous, check if the current matches the previous
       let prevId = prevTarget.id;
       let targId = target.id;
+      const DELAY = 900;
+
       if (prevId.substring(1) === targId.substring(1) && prevId !== targId) {
         updateScore();
 
         // set visibility to hidden
         let prev = prevTarget;
-        let delay = 900;
-        setTimeout(addClass, delay, target, prev, "matched");
+        setTimeout(addClass, DELAY, target, prev, "matched");
       } else if (prevId.substring(1) !== targId.substring(1)) {
 
         // flip them back over
         let prev = prevTarget;
-        setTimeout(addClass, delay, target, prev, "flipped");
+        setTimeout(addClass, DELAY, target, prev, "flipped");
       }
       prevTarget = null;
     }
   }
+
+  /**
+   * Sets up the board. Randomly places the images in a 4x4 grid. Also adds an
+   * event listener to each card so that they are ready to be flipped.
+   */
 
   function createBoard() {
     // set up with random placement of images
@@ -86,10 +104,24 @@
     }
   }
 
+  /**
+   * Adds a class to both the current card and the previous card.
+   * This is mainly so that we can style the desired cards.
+   * @param {element} target   the current card
+   * @param {element} prev     the previous card
+   * @param {string} className the name of the class we want to add
+   */
+
   function addClass(target, prev, className) {
     target.classList.add(className);
     prev.classList.add(className);
   }
+
+  /**
+   * Updates the score of the game every time the user finds a match.
+   * Once all matches have been found, clears the board and shows celebration
+   * text and image, using helper functions.
+   */
 
   function updateScore() {
     let matches = document.getElementById("match-count");
@@ -100,12 +132,10 @@
     }
   }
 
-  function clearBoard() {
-    for (let i = 1; i <= NUM_ROWS; i++) {
-      let row = document.getElementById("row" + i);
-      row.innerHTML = "";
-    }
-  }
+  /**
+   * Tells user that they have found all matches. Clears the board and shows
+   * a gif of happy cartoon characters with food.
+   */
 
   function celebrate() {
     let element = document.querySelector("#score-text");
@@ -118,7 +148,20 @@
 
     // https://media.giphy.com/media/ZB3IAId94nJj07ZzUf/giphy.gif
     gif.src = "images/happyfood.gif";
+    gif.alt = "happy characters with food";
     element.appendChild(gif);
+  }
+
+  /**
+   * Clears the board from the webpage. Keeps the row sections intact, just
+   * removes all of the images from the rows.
+   */
+
+  function clearBoard() {
+    for (let i = 1; i <= NUM_ROWS; i++) {
+      let row = document.getElementById("row" + i);
+      row.innerHTML = "";
+    }
   }
 
 })();
